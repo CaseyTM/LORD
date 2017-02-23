@@ -54,7 +54,7 @@ class Dragon(Character):
 		self.name = "Green Dragon";
 		self.max_health = 6000;
 		self.current_health = 6000;
-		self.power = 50;
+		self.power = 500;
 		self.bonus_damage = 1.5;
 
 	def image(self):

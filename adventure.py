@@ -1,13 +1,14 @@
-from character import Character;
+
 from bosses import *;
 from heroes import *;
+from monsters import *;
 
 
 
 level = "Start";
 
 dragon = Dragon();
-# dragon.test();
+basic_enemy = Monster();
 
 while 1:
 	while (level == "Start"):
@@ -83,25 +84,29 @@ while 1:
 
 
 	while (level == "Dragon"):
-		print "inside dragon loop";
+		
 		while player.alive() and dragon.alive():
-			dragon.image()
+			
 			print "fighting dragon"
 			print "You approach a large clearing in the forest, the trees are flattened and burned amidst a chaos of charred bodies. A massive cave entrance lies ahead, do you wish to proceed?"
 			print "1. Take your chances"
 			print "2. Run before the Dragon notices you"
-			print dragon.name
+			
 			input = int(raw_input());
-			print input
+		
 			if input == 1:
 				player.attack(dragon);
 				dragon.attack(player);
 				print "Your HEALTH is currently %d of %d, the Dragon is at %d of %d" % (player.current_health, player.max_health, dragon.current_health, dragon.max_health);
-				if player.alive():
+				if player.alive() and not dragon.alive():
 					print "Victory"
 					level = "Forest"
-				else:
+				elif not player.alive():
+					print "******"
+					print "***"
 					print "You were slain by the %s" % dragon.name
+					print "***"
+					print "******"
 					# print dragon.alive();
 					level = "Home"
 			elif input == 2:
@@ -122,7 +127,39 @@ while 1:
 		print "you are at the City"
 		break;
 
+	while level == "Battlegrounds":
+		while player.alive() and basic_enemy.alive():
 
+
+			print "You have been attacked by a  %s" % basic_enemy.name
+			print "(F)ight"
+			print "(R)un away"
+			
+			input = raw_input();
+		
+			if input == "F":
+				player.attack(basic_enemy);
+				basic_enemy.attack(player);
+				print "Your HEALTH is currently %d of %d, the %s is at %d of %d" % (player.current_health, player.max_health, basic_enemy.name, basic_enemy.current_health, basic_enemy.max_health);
+				if not basic_enemy.alive():
+					print "Victory! You have slain the %s" % basic_enemy.name
+					print "(S)earch for more monsters"
+					print "(R)eturn to the forest"
+					input = raw_input();
+					print input
+					if input == "S":
+						print input
+						
+					elif input == "R":
+						level = "Forest"
+
+				elif not player.alive():
+					print "You were slain by the %s" % basic_enemy.name
+					# print dragon.alive();
+					level = "Home"
+			elif input == "R":
+				level = "Forest"
+				break;
 
 
 
